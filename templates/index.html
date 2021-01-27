@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Title</title>
+    <style>
+* {
+  box-sizing: border-box;
+
+}
+body{
+            
+            margin: 0px;
+            padding: 0px;
+            background-repeat: no-repeat;
+
+        }
+#a { 
+            text-decoration: none; 
+        } 
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  
+  padding: 10px;
+   /* Should be removed. Only for demonstration */
+}
+.right {
+  width: 25%;
+
+}
+.left {
+  width: 75%;
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.alignleft {
+  float: left;
+}
+.alignright {
+  float: right;
+}
+</style>
+</head>
+<body>
+  <div style="padding:20px ;margin: 0px">
+    <fieldset style="padding: 50px:letter-spacing: 10px;line-height: 1.8;">
+          <span>
+            {% for i in itemlist %}
+                {{i.upper()}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {% endfor %}
+          </span>
+        </fieldset>
+<br><br><br>
+        <div style="width: 50%"> 
+          <form action="/add" method="POST">
+
+            <fieldset>
+              <legend>ADD ITEM</legend>
+              <input type="text" name="todoitem">
+              <input type="submit" value="Add Item">
+            </fieldset>
+
+          </form>
+        </div>
+ <!-- <form action="{{ url_for('add') }}",method='POST'>
+
+        <fieldset>
+          <legend>ADD ITEM</legend>
+          <input type="text" name="item" >
+          <input type="submit" >
+        </fieldset>
+      </form> -->
+            
+    
+  </div>
+   
+
+  <div class="row">
+    <div class="column left" >
+
+
+      
+      {% if text1!=[] %}
+          <fieldset style="border-radius: 10px">
+            <legend>Frequently buy items</legend>
+            {% for i in item_predict %}
+            <div>
+              <a id = "a" href="{{ url_for('checkbox', id=i) }}">&#10066;</a>
+              <label for={{i}}>{{ i.upper() }}</label>
+            </div>
+            
+             {% endfor %}
+            
+          </fieldset>
+     {% endif %}
+     
+    </div>
+    
+
+    <div class="column right" >
+
+        <div class="w3-container" >
+
+
+            
+            <form action="/delete" >
+            <label for="name" style="font-size: 30px;">Cart: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+
+            <input type="submit" value="reset">
+            
+
+        
+            </form>
+            
+
+            <div class="w3-panel w3-card" style="border-radius: 25px;width: 80%;padding-top: 10px;padding-bottom: 10px">
+                {% if text1==[] %}
+                      <p>Cart is empty</p>
+                {% endif %}
+              {% for todo in text1 %}
+
+            
+                    <div id="textbox" style="clear: both;">
+                        <p class="alignleft">&nbsp;{{loop.index }}.&nbsp;&nbsp;{{ todo.text.upper() }}</p>
+                        <p class="alignright"><a href="{{ url_for('delete_item', id=todo.id) }}">delete</a></p>
+                    </div>
+
+            {% endfor %}
+              
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
